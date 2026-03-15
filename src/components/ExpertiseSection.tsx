@@ -61,7 +61,7 @@ export default function ExpertiseSection() {
       {/* Header Area */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="flex flex-col">
-          <h2 className="text-5xl md:text-[8vw] lg:text-[7vw] font-black uppercase leading-[0.8] tracking-tighter">
+          <h2 className="text-5xl md:text-[clamp(3.5rem, 7vw, 9.5vw)] font-black uppercase leading-[0.8] tracking-tighter">
             Core <br />
             <span className="text-accent italic">Expertise</span>
           </h2>
@@ -103,12 +103,7 @@ export default function ExpertiseSection() {
         ))}
       </div>
 
-      {/* Bottom Footer Area */}
-      <div className="relative z-10">
-        <div className="opacity-20">
-          <Marquee text="CRAFTING INTERFACES • DESIGNING EXPERIENCES • PIXEL PERFECTION •" baseVelocity={-0.5} />
-        </div>
-      </div>
+
     </section>
   );
 }

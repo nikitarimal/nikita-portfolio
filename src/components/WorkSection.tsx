@@ -136,7 +136,7 @@ export default function WorkSection() {
   return (
     <div id="work" className="bg-black">
       {/* Intro section that scrolls normally - Reduced height */}
-      <section className="h-[40vh] flex flex-col justify-end px-12 md:px-[15vw] pb-16 overflow-hidden">
+      <section className="h-[25vh] flex flex-col justify-end px-12 md:px-[15vw] pb-16 overflow-hidden">
          <motion.span 
            initial={{ opacity: 0, x: -20 }}
            whileInView={{ opacity: 1, x: 0 }}
@@ -149,7 +149,7 @@ export default function WorkSection() {
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-8xl md:text-[15vw] font-black uppercase leading-[0.7] tracking-tighter"
+          className="text-9xl md:text-[clamp(5rem, 12vw, 16vw)] font-black uppercase leading-[0.7] tracking-tighter"
         >
           Selected <br />
           <motion.span 

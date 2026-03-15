@@ -11,14 +11,11 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative bg-black px-12 md:px-[15vw] overflow-hidden h-screen flex flex-col justify-between py-12 md:py-16 snap-start">
-      <div className="absolute top-0 left-0 w-full opacity-10 py-4">
-         <Marquee text="Get in Touch • Let's Collaborate •" baseVelocity={3} />
-      </div>
       
       <div className="flex flex-col justify-center flex-1 relative z-10 w-full gap-8 md:gap-16">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-32">
            <div className="flex flex-col gap-10">
-              <h2 className="text-8xl md:text-[14vw] font-black uppercase leading-none tracking-tighter">
+              <h2 className="text-5xl md:text-[clamp(4rem,8vw,12vw)] font-black uppercase leading-[0.8] tracking-tighter">
                 Say <br />
                 <span className="text-accent italic">Hello</span>
               </h2>

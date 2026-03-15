@@ -103,7 +103,7 @@ export default function Navbar() {
         initial={{ y: "-100%" }}
         animate={{ y: isOpen ? 0 : "-100%" }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-0 bg-black z-[90] md:hidden flex flex-col items-center justify-center px-12 md:px-[15vw]"
+        className="fixed inset-0 bg-black z-[90] md:hidden flex flex-col items-center justify-center px-8 md:px-[10vw]"
       >
         <div className="flex flex-col items-center gap-12">
           {navLinks.map((link, idx) => (

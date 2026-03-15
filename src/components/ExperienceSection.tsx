@@ -53,7 +53,7 @@ function ExperienceItem({ exp, index }: { exp: typeof experiences[0], index: num
       style={{ opacity }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col md:flex-row gap-12 md:gap-32 py-12 md:py-24 items-start px-12 md:px-[15vw] transition-colors duration-700 hover:bg-white/[0.01] overflow-visible"
+      className="group relative flex flex-col md:flex-row gap-12 md:gap-32 py-12 md:py-24 items-start transition-colors duration-700 hover:bg-white/[0.01] overflow-visible"
     >
       {/* Background Floating Element - Numbering */}
       <motion.div 
@@ -107,7 +107,7 @@ function ExperienceItem({ exp, index }: { exp: typeof experiences[0], index: num
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-24 md:py-64 pb-48 md:pb-[30vh] px-12 md:px-[15vw] bg-black overflow-hidden relative selection:bg-accent selection:text-black snap-start">
+    <section id="experience" className="py-24 md:py-64 pb-48 md:pb-[30vh] px-8 md:px-[15vw] bg-black overflow-hidden relative selection:bg-accent selection:text-black snap-start">
       {/* Decorative Background Text */}
       <div className="absolute left-10 top-20 text-[20vw] font-black text-white/[0.01] uppercase tracking-tighter select-none pointer-events-none z-0">
         Background
@@ -123,7 +123,7 @@ export default function ExperienceSection() {
               initial={{ y: "100%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-8xl md:text-[12vw] font-black uppercase leading-none tracking-tighter"
+              className="text-7xl md:text-[clamp(4rem,7.5vw,10vw)] font-black uppercase leading-none tracking-tighter"
             >
               EXPER<span className="text-accent italic">IENCE</span>
             </motion.h2>

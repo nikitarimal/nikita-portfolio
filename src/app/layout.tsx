@@ -12,6 +12,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Nikita Rimal | UI/UX Designer",
   description: "Innovative UI/UX designer crafting beautiful digital experiences. Based in Kathmandu, Nepal.",
+  icons: {
+    icon: "/image/nikita-logo.png",
+    apple: "/image/nikita-logo.png",
+  }
 };
 
 export default function RootLayout({

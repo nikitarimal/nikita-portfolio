@@ -42,7 +42,7 @@ export default function Hero() {
 
       <motion.div 
         style={{ scale, opacity, y: textY }}
-        className="relative z-10 w-full px-6 md:px-12 pt-24 md:pt-32 flex flex-col items-center text-center"
+        className="relative z-10 w-full px-12 md:px-[10vw] pt-24 md:pt-32 flex flex-col items-center text-center"
       >
         <motion.div
            variants={containerVariants}

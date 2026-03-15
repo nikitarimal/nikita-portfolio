@@ -1,12 +1,12 @@
 "use client";
 
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
 import WorkSection from "@/components/WorkSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ExpertiseSection from "@/components/ExpertiseSection";
 import PortraitSection from "@/components/PortraitSection";
 import Footer from "@/components/Footer";
+import StripeMarquee from "@/components/StripeMarquee";
 
 export default function Home() {
   return (
@@ -24,6 +24,12 @@ export default function Home() {
         <section className="snap-start">
             <ExperienceSection />
         </section>
+
+        {/* Stripe Marquee — isolated with explicit vertical margin */}
+        <div className="mt-24 md:mt-40 mb-24 md:mb-40">
+          <StripeMarquee />
+        </div>
+
         <section className="snap-start">
             <ExpertiseSection />
         </section>

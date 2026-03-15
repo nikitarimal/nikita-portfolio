@@ -19,7 +19,7 @@ export default function PortraitSection() {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-[120vh] w-full bg-black z-20"
+      className="relative h-screen w-full bg-black z-20"
     >
       {/* Sticky Image Wrapper */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-12 md:px-[15vw]">
@@ -51,7 +51,6 @@ export default function PortraitSection() {
       </div>
 
       {/* Reduced placeholder to tighten the gap to the next section */}
-      <div className="h-[20vh] w-full" />
     </section>
   );
 }
