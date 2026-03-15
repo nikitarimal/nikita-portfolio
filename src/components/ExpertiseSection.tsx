@@ -61,7 +61,7 @@ export default function ExpertiseSection() {
       {/* Header Area */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="flex flex-col">
-          <h2 className="text-5xl md:text-[clamp(3.5rem, 7vw, 9.5vw)] font-black uppercase leading-[0.8] tracking-tighter">
+          <h2 className="text-9xl md:text-[clamp(3.5rem, 7vw, 9.5vw)] font-black uppercase leading-[0.8] tracking-tighter">
             Core <br />
             <span className="text-accent italic">Expertise</span>
           </h2>
