@@ -63,7 +63,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
     >
       <motion.div 
         style={{ opacity }}
-        className="container mx-auto px-12 md:px-[15vw] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center h-full"
+        className="w-full !px-[7vw] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center h-full"
       >
         {/* Left Side: Project Image */}
         <div className="relative h-[40vh] md:h-[60vh] lg:h-[70vh] w-full perspective-2000">
@@ -136,7 +136,7 @@ export default function WorkSection() {
   return (
     <div id="work" className="bg-black">
       {/* Intro section that scrolls normally - Reduced height */}
-      <section className="h-[25vh] flex flex-col justify-end px-12 md:px-[15vw] pb-16 overflow-hidden">
+      <section className="h-[25vh] flex flex-col justify-end w-full !px-[7vw] pb-16 overflow-hidden">
          <motion.span 
            initial={{ opacity: 0, x: -20 }}
            whileInView={{ opacity: 1, x: 0 }}

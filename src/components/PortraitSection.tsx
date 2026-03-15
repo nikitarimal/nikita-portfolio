@@ -22,7 +22,7 @@ export default function PortraitSection() {
       className="relative h-screen w-full bg-black z-20"
     >
       {/* Sticky Image Wrapper */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-12 md:px-[15vw]">
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden !px-[7vw]">
         <motion.div 
           className="relative w-full md:w-[50vw] h-[80vh] md:h-[90vh] overflow-hidden rounded-t-full shadow-[0_0_100px_rgba(0,0,0,0.5)] border-x border-t border-white/10"
         >

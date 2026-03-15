@@ -10,7 +10,7 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="relative bg-black px-12 md:px-[15vw] overflow-hidden h-screen flex flex-col justify-between py-12 md:py-16 snap-start">
+    <footer id="contact" className="relative bg-black w-full !px-[7vw] overflow-hidden h-screen flex flex-col justify-between py-12 md:py-16 snap-start">
       
       <div className="flex flex-col justify-center flex-1 relative z-10 w-full gap-8 md:gap-16">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-32">

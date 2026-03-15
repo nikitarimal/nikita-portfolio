@@ -107,7 +107,7 @@ function ExperienceItem({ exp, index }: { exp: typeof experiences[0], index: num
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-24 md:py-64 pb-48 md:pb-[30vh] px-8 md:px-[15vw] bg-black overflow-hidden relative selection:bg-accent selection:text-black snap-start">
+    <section id="experience" className="py-24 md:py-64 pb-48 md:pb-[30vh] w-full !px-[7vw] bg-black overflow-hidden relative selection:bg-accent selection:text-black snap-start">
       {/* Decorative Background Text */}
       <div className="absolute left-10 top-20 text-[20vw] font-black text-white/[0.01] uppercase tracking-tighter select-none pointer-events-none z-0">
         Background

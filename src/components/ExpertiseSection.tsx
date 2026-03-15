@@ -48,7 +48,7 @@ export default function ExpertiseSection() {
   return (
     <section 
       id="expertise"
-      className="relative min-h-screen w-full px-12 md:px-[15vw] bg-[#050505] overflow-hidden flex flex-col justify-start pb-32 gap-32 snap-start"
+      className="relative min-h-screen w-full !px-[7vw] bg-[#050505] overflow-hidden flex flex-col justify-start pb-32 gap-32 snap-start"
     >
       <div className="h-[10vh] w-full shrink-0" />
       <div className="noise-bg opacity-30" />
