@@ -1,106 +1,77 @@
-"use client";
-
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import Marquee from "./Marquee";
-import { useRef } from "react";
-import Particles from "./Particles";
+﻿import Image from "next/image";
+import { ArrowDownRight } from "lucide-react";
+import Reveal from "./Reveal";
 
 export default function Hero() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.4,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 100, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
   return (
-    <section ref={containerRef} className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-black select-none">
-      <Particles />
-
-      <motion.div 
-        style={{ scale, opacity, y: textY }}
-        className="relative z-10 w-full px-12 md:px-[10vw] pt-24 md:pt-32 flex flex-col items-center text-center"
-      >
-        <motion.div
-           variants={containerVariants}
-           initial="hidden"
-           animate="visible"
-           className="flex flex-col items-center gap-12"
-        >
-          {/* Top Metadata */}
-          <motion.div variants={itemVariants} className="flex items-center gap-6">
-            <span className="text-[10px] font-black tracking-[0.6em] uppercase text-accent border border-accent/20 px-4 py-1.5 rounded-full">
-              Available for Projects
-            </span>
-            <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_10px_rgba(229,255,0,0.5)]" />
-            <span className="text-[10px] font-black tracking-[0.6em] uppercase text-white/30 truncate">
-                Based in Nepal
-            </span>
-          </motion.div>
-
-          {/* Main Massive Title */}
-          <div className="relative">
-            <h1 className="text-[14vw] md:text-[16vw] font-black uppercase leading-[0.7] tracking-tighter flex flex-col items-center">
-              <motion.span 
-                variants={itemVariants} 
-                className="relative inline-block hover:scale-[1.02] transition-transform duration-700"
-              >
-                Nikita
-              </motion.span>
-              <motion.span 
-                variants={itemVariants} 
-                className="text-accent italic translate-y-[-2vw] hover:scale-[1.02] transition-transform duration-700"
-              >
-                Rimal
-              </motion.span>
-            </h1>
-          </div>
-
-          {/* Subtitle / Focus */}
-          <motion.div variants={itemVariants} className="max-w-xl flex flex-col gap-8">
-            <p className="text-xl md:text-3xl text-white font-medium uppercase tracking-[0.1em] leading-none">
-              Product & Interface Designer
-            </p>
-            <p className="text-[10px] md:text-xs text-white/30 uppercase tracking-[0.4em] leading-loose max-w-sm mx-auto">
-              [ Specializing in high-impact digital products, scalable design systems, and user-centric architecture ]
-            </p>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-
-
-      {/* Bottom Corner Info */}
-      <div className="absolute bottom-10 left-10 md:left-20 hidden md:flex flex-col gap-1">
-          <span className="text-[8px] text-white/20 uppercase tracking-[0.5em] font-bold">Focus Area</span>
-          <span className="text-[10px] text-white/50 uppercase tracking-[0.2em] font-black">Marketplaces & Booking Systems</span>
+    <section
+      id="top"
+      className="hero section-shell"
+      aria-labelledby="hero-title"
+    >
+      <div className="hero-topline">
+        <p className="eyebrow">Independent designer / Kathmandu, Nepal</p>
+        <p className="eyebrow">Web · Mobile · Visual</p>
       </div>
-
-      <div className="absolute bottom-10 right-10 md:right-20 hidden md:flex flex-col gap-1 items-end">
-          <span className="text-[8px] text-white/20 uppercase tracking-[0.5em] font-bold">Current Era</span>
-          <span className="text-[10px] text-white/50 uppercase tracking-[0.2em] font-black">'25 Portfolio v.02</span>
+      <div className="hero-composition">
+        <Reveal className="hero-heading">
+          <h1 id="hero-title">
+            <span>Nikita</span>
+            <span className="hero-surname">
+              Rimal<span className="hero-period">.</span>
+            </span>
+          </h1>
+          <span className="name-underline" aria-hidden="true" />
+        </Reveal>
+        <div className="hero-side">
+          <div className="hero-note">
+            a designer,
+            <br />
+            <span>among other things.</span>
+            <svg viewBox="0 0 100 70" aria-hidden="true">
+              <path d="M8 8C58 2 92 16 71 49M71 49L70 31M71 49L87 42" />
+            </svg>
+          </div>
+          <a href="#about" className="hero-photo">
+            <div className="hero-photo-image">
+              <Image
+                src="/image/nikita.jpg"
+                alt="Meet Nikita Rimal"
+                fill
+                priority
+                sizes="(max-width: 760px) 150px, 240px"
+              />
+            </div>
+            <span>
+              Hi, I’m Nikita. <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+        </div>
+        <span className="hero-side-label" aria-hidden="true">
+          A work in progress. Always.
+        </span>
+      </div>
+      <div className="hero-bottom">
+        <p className="hero-description">
+          UI/UX designer.
+          <br />
+          Web, mobile & the
+          <br />
+          <span className="marked-word">details</span> in between.
+        </p>
+        <p className="hero-intro">
+          I design interfaces for people
+          <br />
+          with places to go and things to do.
+        </p>
+        <a href="#work" className="work-jump">
+          <span>
+            Enough about me.
+            <br />
+            <strong>Here’s the work.</strong>
+          </span>
+          <ArrowDownRight size={44} strokeWidth={1.3} />
+        </a>
       </div>
     </section>
   );
