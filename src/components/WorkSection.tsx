@@ -1,174 +1,241 @@
-"use client";
+﻿import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import Reveal from "./Reveal";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink } from "lucide-react";
-import { useRef } from "react";
-import Marquee from "./Marquee";
-import Image from "next/image";
+type Project = {
+  title: string;
+  category: string;
+  year?: string;
+  link: string;
+  websiteUrl?: string;
+  hasCaseStudy?: boolean;
+  description?: string;
+  image?: string;
+  figma?: boolean;
+};
 
-const projects = [
+const projects: Project[] = [
   {
     title: "Freelance Travel",
     category: "Travel Booking Platform",
     year: "2024",
-    link: "https://freelancetravel.com/",
-    description: "Designed a travel booking website that allows users to easily search and book travel packages through a simple and user-friendly interface.",
+    link: "https://www.figma.com/proto/NhQqguFZrOwMVmEM4ci8zl/my-Case-studies?node-id=5-6206&t=ePcsvmmVQyIIlW6J-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=52%3A17856",
+    websiteUrl: "https://freelancetravel.com/",
+    hasCaseStudy: true,
+    description:
+      "Designed a travel booking website that allows users to easily search and book travel packages through a simple and user-friendly interface.",
     image: "/projects/freelance-landing.png",
-    color: "bg-[#0a0a0a]",
   },
   {
     title: "Reffero",
     category: "Influencer Marketplace",
     year: "2024",
     link: "#",
-    description: "A platform connecting brands with influencers for collaboration and hiring. Creator dashboard and hiring workflow design.",
+    description:
+      "A platform connecting brands with influencers for collaboration and hiring. Creator dashboard and hiring workflow design.",
     image: "/projects/reffero.png",
-    color: "bg-[#0f0f0f]",
   },
   {
     title: "Baliyo Ventures",
     category: "Official Company Website",
     year: "2025",
     link: "https://www.baliyoventures.com/",
-    description: "Designed the official company website focusing on modern design, usability, and clear content structure.",
+    description:
+      "Designed the official company website focusing on modern design, usability, and clear content structure.",
     image: "/projects/baliyo-landing.png",
-    color: "bg-[#0a0a0a]",
   },
   {
     title: "Trek Booking",
     category: "Adventure Platform",
     year: "2024",
     link: "#",
-    description: "Designed a comprehensive trekking and adventure booking platform for the Himalayan region.",
+    description:
+      "Designed a comprehensive trekking and adventure booking platform for the Himalayan region.",
     image: "/projects/trek-booking.png",
-    color: "bg-[#0f0f0f]",
-  }
+  },
+  {
+    title: "BI Conversion",
+    category: "Business Intelligence",
+    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=543-30478&t=tAPp6UPsgBLM7stW-1",
+    figma: true,
+  },
+  {
+    title: "Cropyield",
+    category: "Productivity and Management Apps",
+    description: "Internal task and project management app",
+    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=381-8153&t=tAPp6UPsgBLM7stW-1",
+    figma: true,
+  },
+  {
+    title: "AmCham Nepal Website",
+    category: "Website Design",
+    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=1-8&t=tAPp6UPsgBLM7stW-1",
+    figma: true,
+  },
+  {
+    title: "Rudraksha App",
+    category: "Mobile App Design",
+    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=1169-34706&t=fDh5i0YVjsli57An-1",
+    figma: true,
+  },
 ];
 
-function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
-  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.2, 1, 1.2]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const content = (
+    <>
+      <div className={`project-visual project-visual-${index}`}>
+        <div className="project-sheet">
+          <div className="sheet-edge" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <span>{project.title}</span>
+          </div>
+          <div className="project-image-window">
+            <Image
+              src={project.image!}
+              alt={`${project.title} interface design`}
+              fill
+              sizes={
+                index === 0
+                  ? "(max-width: 760px) 85vw, 58vw"
+                  : "(max-width: 760px) 85vw, 44vw"
+              }
+              className="project-image"
+            />
+          </div>
+        </div>
+      {project.link !== "#" && (
+        <span className="project-open">
+          {project.hasCaseStudy ? "Read case study" : "Open project"}
+          <ArrowUpRight size={17} />
+        </span>
+      )}
+      </div>
+      <div className="project-caption">
+        <span className="project-index">
+          ({String(index + 1).padStart(2, "0")})
+        </span>
+        <div>
+          <h3>{project.title}</h3>
+          <p className="project-meta">
+            {project.category}
+            {project.year && <span> / {project.year}</span>}
+          </p>
+        </div>
+        <ArrowUpRight
+          aria-hidden="true"
+          className="caption-arrow"
+          strokeWidth={1.3}
+          size={30}
+        />
+      </div>
+      {project.description && (
+        <p className="project-description">{project.description}</p>
+      )}
+      {project.link === "#" && (
+        <span className="project-pending">Case study coming soon</span>
+      )}
+    </>
+  );
+  const primaryLabel = project.hasCaseStudy
+    ? `Read the ${project.title} case study`
+    : `View ${project.title} website`;
 
   return (
-    <section 
-      ref={ref} 
-      className="h-screen w-full flex items-center justify-center snap-start snap-always relative overflow-hidden"
-    >
-      <motion.div 
-        style={{ opacity }}
-        className="w-full !px-[7vw] grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center h-full"
-      >
-        {/* Left Side: Project Image */}
-        <div className="relative h-[40vh] md:h-[60vh] lg:h-[70vh] w-full perspective-2000">
-          <motion.div 
-            whileHover={{ rotateY: 3, rotateX: -3, scale: 1.02 }}
-            className={`relative w-full h-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 ${project.color} group shadow-2xl transition-all duration-700`}
+    <Reveal className={`project-card project-card-${index}`}>
+      <article>
+        {project.link !== "#" ? (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link"
+            aria-label={`${primaryLabel} (opens in a new tab)`}
           >
-            <motion.div style={{ scale: imgScale }} className="absolute inset-0 w-full h-full">
-              <Image 
-                src={project.image} 
-                alt={project.title} 
-                fill 
-                className="object-cover transition-all duration-1000"
-              />
-            </motion.div>
-
-            {/* Link overlay */}
-            <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-[2px] z-20">
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-24 h-24 bg-accent rounded-full flex items-center justify-center scale-0 hover:scale-100 transition-transform duration-500 hover:rotate-12"
-              >
-                <ExternalLink className="text-black w-8 h-8" />
-              </a>
-            </div>
-
-            {/* Background Title Marquee (Subtle) */}
-            <div className="absolute inset-x-0 bottom-10 opacity-[0.05] pointer-events-none">
-               <Marquee text={project.title} baseVelocity={index % 2 === 0 ? 0.5 : -0.5} />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Side: Info */}
-        <motion.div style={{ y }} className="flex flex-col gap-8 md:gap-12">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <span className="text-accent text-sm font-mono tracking-[0.3em] font-bold uppercase">{project.category}</span>
-              <div className="w-12 h-px bg-white/20" />
-              <span className="text-white/30 text-sm font-medium tracking-widest uppercase">{project.year}</span>
-            </div>
-            
-            <h3 className="text-6xl md:text-8xl xl:text-[7.5vw] font-black uppercase tracking-tighter leading-[0.85] text-white">
-              {project.title.split(' ').map((word, i) => (
-                <span key={i} className="block last:text-accent last:italic">{word}</span>
-              ))}
-            </h3>
-          </div>
-
-          <p className="text-xl md:text-2xl text-white/50 leading-relaxed font-light uppercase tracking-tight max-w-xl italic">
-            {project.description}
-          </p>
-
-          <div className="flex items-baseline gap-4 mt-4">
-             <span className="text-accent text-6xl font-black font-mono opacity-20 italic select-none">0{index + 1}</span>
-             <div className="flex flex-col gap-1">
-                <span className="text-[10px] text-white/20 uppercase tracking-[0.5em] font-bold">Project Scope</span>
-                <span className="text-xs text-white/40 uppercase tracking-[0.2em] font-medium border-l border-accent/30 pl-3">Full Case Study Coming Soon</span>
-             </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </section>
+            {content}
+          </a>
+        ) : (
+          <div className="project-link project-unlinked">{content}</div>
+        )}
+        {project.websiteUrl && (
+          <a
+            className="project-secondary-link"
+            href={project.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit the live ${project.title} website (opens in a new tab)`}
+          >
+            Visit live website <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+        )}
+      </article>
+    </Reveal>
   );
 }
 
 export default function WorkSection() {
+  const featured = projects.filter((project) => project.image);
+  const designIndex = projects.filter((project) => !project.image);
   return (
-    <div id="work" className="bg-black">
-      {/* Intro section that scrolls normally - Reduced height */}
-      <section className="h-[25vh] flex flex-col justify-end w-full !px-[7vw] pb-16 overflow-hidden">
-         <motion.span 
-           initial={{ opacity: 0, x: -20 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           transition={{ duration: 0.8 }}
-           className="text-accent text-xs font-bold tracking-[0.6em] uppercase mb-10 block"
-         >
-           Portfolio
-         </motion.span>
-        <motion.h2 
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-9xl md:text-[clamp(5rem, 12vw, 16vw)] font-black uppercase leading-[0.7] tracking-tighter"
-        >
-          Selected <br />
-          <motion.span 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 0.1, x: 0 }}
-            transition={{ duration: 1.5, delay: 0.2 }}
-            className="translate-x-10 inline-block italic"
-          >
-            Works
-          </motion.span>
-        </motion.h2>
-      </section>
-
-      {/* Snap Container */}
-      <div className="snap-y snap-mandatory select-none">
-        {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} index={index} />
+    <section
+      id="work"
+      className="work section-shell section-space"
+      aria-labelledby="work-title"
+    >
+      <Reveal className="work-heading">
+        <div>
+          <p className="eyebrow section-label">01 / Proof of work</p>
+          <h2 id="work-title" className="section-title">
+            Selected
+            <br />
+            <span className="work-title-bottom">
+              work<span className="work-superscript">[08]</span>
+            </span>
+          </h2>
+        </div>
+        <div className="work-margin-note">
+          <p className="handwritten">
+            A few things
+            <br />
+            I’ve put out into the world.
+          </p>
+          <svg viewBox="0 0 140 90" aria-hidden="true">
+            <path d="M115 7C110 75 75 80 23 51M23 51L42 51M23 51L28 71" />
+          </svg>
+        </div>
+      </Reveal>
+      <div className="project-grid">
+        {featured.map((project, index) => (
+          <ProjectCard key={project.title} project={project} index={index} />
         ))}
       </div>
-    </div>
+      <div className="project-index-section">
+        <div className="index-heading">
+          <h3>Also on the artboard</h3>
+          <p className="eyebrow">Explore the designs in Figma ↗</p>
+        </div>
+        {designIndex.map((project, index) => (
+          <a
+            className="design-index-row"
+            key={project.title}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.title} in Figma (opens in a new tab)`}
+          >
+            <span className="index-number">
+              ({String(featured.length + index + 1).padStart(2, "0")})
+            </span>
+            <div>
+              <h4>{project.title}</h4>
+              {project.description && <p>{project.description}</p>}
+            </div>
+            <span className="index-category">{project.category}</span>
+            <ArrowUpRight size={28} strokeWidth={1.3} />
+          </a>
+        ))}
+      </div>
+    </section>
   );
 }

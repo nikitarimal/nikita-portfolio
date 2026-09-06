@@ -1,56 +1,57 @@
-"use client";
-
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+﻿import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import Reveal from "./Reveal";
 
 export default function PortraitSection() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Parallax and scaling for the image
-  // Start the image higher (-10%) to ensure the top curve is fully filled
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "0%"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.3, 1.2]);
-
   return (
-    <section 
-      ref={containerRef} 
-      className="relative h-screen w-full bg-black z-20"
+    <section
+      id="about"
+      className="about section-shell section-space"
+      aria-labelledby="about-title"
     >
-      {/* Sticky Image Wrapper */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden !px-[7vw]">
-        <motion.div 
-          className="relative w-full md:w-[50vw] h-[80vh] md:h-[90vh] overflow-hidden rounded-t-full shadow-[0_0_100px_rgba(0,0,0,0.5)] border-x border-t border-white/10"
-        >
-          <motion.div style={{ y, scale }} className="absolute inset-0 w-full h-[110%] origin-top">
-            <Image 
-              src="/image/nikita.jpg"
-              alt="Nikita Rimal"
-              fill
-              priority
-              className="object-cover object-bottom" 
-            />
-          </motion.div>
-          {/* Subtle Contrast Overlay */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-10 md:p-20">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-            >
-              <h3 className="text-4xl md:text-8xl font-black uppercase tracking-tighter text-white leading-none text-center">
-                Design <br /><span className="text-accent italic">with Purpose</span>
-              </h3>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Reduced placeholder to tighten the gap to the next section */}
+      <Reveal className="portrait-column">
+        <div className="portrait">
+          <Image
+            src="/image/nikita.jpg"
+            alt="Nikita Rimal"
+            fill
+            sizes="(max-width: 760px) 85vw, 38vw"
+            className="portrait-image"
+          />
+        </div>
+        <p className="portrait-caption">
+          <span>Fig. 01 — The person behind the pixels</span>
+          <span className="handwritten">Hello again!</span>
+        </p>
+      </Reveal>
+      <Reveal className="about-copy">
+        <p className="eyebrow section-label">02 / Off the artboard</p>
+        <h2 id="about-title" className="section-title">
+          Behind
+          <br />
+          the screens<span className="red-period">.</span>
+        </h2>
+        <p className="body-large">
+          I’m Nikita, a UI/UX designer based in Nepal.
+        </p>
+        <p className="body-copy">
+          My work spans travel booking, creator marketplaces, business tools,
+          and mobile apps. I like finding the structure in a complicated flow,
+          then getting the small things right: the hierarchy, the spacing, the
+          next step.
+        </p>
+        <p className="body-copy">
+          I work from wireframes through to detailed interfaces and prototypes,
+          with a background in graphic design.
+        </p>
+        <div className="about-credentials">
+          <span>BCA Graduate</span>
+          <span>Google UX Certified</span>
+        </div>
+        <a className="text-link" href="#experience">
+          Where I’ve worked <ArrowUpRight size={18} />
+        </a>
+      </Reveal>
     </section>
   );
 }
