@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Barlow_Condensed, Caveat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${inter.variable} ${display.variable} ${handwriting.variable}`}
       >
         <SmoothScroll>
+          <ScrollProgress />
           <Navbar />
           {children}
         </SmoothScroll>

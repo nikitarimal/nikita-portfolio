@@ -11,6 +11,27 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("menu-open", open);
+    const main = document.getElementById("main");
+    const footer = document.getElementById("contact");
+
+    if (open) {
+      main?.setAttribute("inert", "");
+      footer?.setAttribute("inert", "");
+    } else {
+      main?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
+    }
+
+    return () => {
+      document.documentElement.classList.remove("menu-open");
+      main?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
+    };
+  }, [open]);
+
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape" && open) {
@@ -41,7 +62,7 @@ export default function Navbar() {
   return (
     <header
       ref={header}
-      className="site-header"
+      className={`site-header${open ? " is-open" : ""}`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}

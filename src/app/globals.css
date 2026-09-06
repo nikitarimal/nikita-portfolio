@@ -151,6 +151,16 @@ html.lenis body {
   inset: 0 0 auto;
   z-index: 100;
   background: #f1efe7f5;
+  animation: header-in 700ms var(--ease) both;
+}
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 150;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  pointer-events: none;
 }
 .nav-inner {
   height: 74px;
@@ -216,6 +226,9 @@ html.lenis body {
   border-bottom: 1px solid var(--line);
   background: var(--background);
 }
+.mobile-nav[hidden] {
+  display: none;
+}
 .mobile-nav a {
   display: flex;
   align-items: center;
@@ -244,6 +257,7 @@ html.lenis body {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  animation: rise-in 800ms 140ms var(--ease) both;
 }
 .hero-composition {
   position: relative;
@@ -285,11 +299,14 @@ html.lenis body {
   border-bottom: 5px solid var(--accent);
   border-radius: 50%;
   transform: rotate(-3deg);
+  transform-origin: left center;
+  animation: draw-line 900ms 650ms var(--ease) both;
 }
 .hero-side {
   align-self: center;
   padding-top: 10px;
   position: relative;
+  animation: rise-in 900ms 520ms var(--ease) both;
 }
 .hero-note {
   color: var(--accent);
@@ -371,6 +388,7 @@ html.lenis body {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--muted);
+  animation: fade-in 900ms 900ms ease both;
 }
 .hero-bottom {
   display: grid;
@@ -378,6 +396,7 @@ html.lenis body {
   align-items: end;
   gap: 32px;
   padding-top: 32px;
+  animation: rise-in 900ms 760ms var(--ease) both;
 }
 .hero-description {
   font-size: clamp(19px, 2vw, 28px);
@@ -559,9 +578,13 @@ html.lenis body {
 .project-image {
   object-fit: cover;
   object-position: top;
+  transition: transform 1s var(--ease);
 }
 .project-link:hover .project-sheet {
   transform: rotate(0) translateY(-8px);
+}
+.project-link:hover .project-image {
+  transform: scale(1.035);
 }
 .project-open {
   position: absolute;
@@ -574,6 +597,13 @@ html.lenis body {
   color: var(--background);
   font-size: 12px;
   padding: 12px 14px;
+  transition:
+    transform 450ms var(--ease),
+    background-color 250ms ease;
+}
+.project-link:hover .project-open {
+  transform: translate(-5px, -5px);
+  background: var(--accent);
 }
 .project-caption {
   display: grid;
@@ -626,6 +656,21 @@ html.lenis body {
     monospace;
   margin: 12px 0 0 39px;
   color: var(--muted);
+}
+.project-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0 0 39px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  transition: color 200ms ease;
+}
+.project-secondary-link:hover {
+  color: var(--accent);
 }
 .project-index-section {
   margin-top: 100px;
@@ -685,6 +730,12 @@ html.lenis body {
   color: var(--accent);
   padding-inline: 12px;
 }
+.design-index-row > svg {
+  transition: transform 450ms var(--ease);
+}
+.design-index-row:hover > svg {
+  transform: translate(5px, -5px) rotate(8deg);
+}
 .about {
   border-top: 1px solid var(--foreground);
   display: grid;
@@ -702,6 +753,9 @@ html.lenis body {
   transform: rotate(-4deg);
   background: #e0c9c2;
   padding: 14px;
+  transition:
+    transform 700ms var(--ease),
+    box-shadow 700ms var(--ease);
 }
 .portrait-image {
   object-fit: cover;
@@ -712,6 +766,10 @@ html.lenis body {
 }
 .portrait:hover .portrait-image {
   filter: grayscale(0);
+}
+.portrait:hover {
+  transform: rotate(-1deg) translateY(-6px);
+  box-shadow: 18px 24px 0 #bc342318;
 }
 .portrait-caption {
   position: relative;
@@ -768,6 +826,15 @@ html.lenis body {
   padding: 32px 0;
   border-top: 1px solid var(--line);
   align-items: start;
+  transition:
+    padding 500ms var(--ease),
+    color 250ms ease;
+}
+.experience-row:hover {
+  padding-inline: 14px;
+}
+.experience-row:hover h3 {
+  color: var(--accent);
 }
 .experience-list > :last-child .experience-row {
   border-bottom: 1px solid var(--line);
@@ -816,6 +883,13 @@ html.lenis body {
 .expertise-card {
   border-top: 3px solid var(--foreground);
   padding-top: 18px;
+  transition:
+    border-color 250ms ease,
+    transform 500ms var(--ease);
+}
+.expertise-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-8px);
 }
 .expertise-number {
   display: flex;
@@ -970,6 +1044,62 @@ html.lenis body {
   gap: 10px;
   min-height: 44px;
 }
+@keyframes header-in {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes draw-line {
+  from {
+    opacity: 0;
+    transform: rotate(-3deg) scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-3deg) scaleX(1);
+  }
+}
+@keyframes menu-open {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 @media (max-width: 1100px) {
   .section-shell {
     width: calc(100% - 64px);
@@ -1009,14 +1139,97 @@ html.lenis body {
   }
 }
 @media (max-width: 899px) {
+  html.menu-open,
+  html.menu-open body {
+    overflow: hidden;
+  }
+  .site-header.is-open {
+    background: var(--background);
+  }
+  .nav-inner {
+    position: relative;
+    z-index: 3;
+  }
   .desktop-nav {
     display: none;
   }
   .menu-toggle {
     display: grid;
   }
+  .site-header.is-open .menu-toggle {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--background);
+  }
   .nav-contact {
     margin-left: auto;
+  }
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    height: 100vh;
+    height: 100svh;
+    padding: 104px 7vw 32px;
+    border: 0;
+    overflow-y: auto;
+    counter-reset: mobile-menu;
+    animation: menu-open 600ms var(--ease) both;
+  }
+  .mobile-nav a {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    align-items: center;
+    flex: 1;
+    min-height: 74px;
+    max-height: 126px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display), Impact, sans-serif;
+    font-size: clamp(54px, 10vw, 92px);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    counter-increment: mobile-menu;
+    animation: menu-link-in 650ms var(--ease) both;
+  }
+  .mobile-nav a:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .mobile-nav a::before {
+    content: "0" counter(mobile-menu);
+    align-self: start;
+    margin-top: 9px;
+    color: var(--accent);
+    font: 11px/1 "Courier New", monospace;
+    letter-spacing: 0;
+  }
+  .mobile-nav a svg {
+    width: clamp(28px, 4vw, 42px);
+    height: auto;
+    stroke-width: 1.2;
+    transition: transform 350ms var(--ease);
+  }
+  .mobile-nav a:hover svg,
+  .mobile-nav a:focus-visible svg {
+    transform: translate(5px, -5px) rotate(8deg);
+  }
+  .mobile-nav a:nth-child(2) {
+    animation-delay: 55ms;
+  }
+  .mobile-nav a:nth-child(3) {
+    animation-delay: 110ms;
+  }
+  .mobile-nav a:nth-child(4) {
+    animation-delay: 165ms;
+  }
+  .mobile-nav a:nth-child(5) {
+    animation-delay: 220ms;
   }
   .hero-composition {
     gap: 25px;
@@ -1084,7 +1297,20 @@ html.lenis body {
     font-size: 38px;
   }
   .nav-contact {
-    gap: 10px;
+    display: none;
+  }
+  .menu-toggle {
+    margin-left: auto;
+  }
+  .mobile-nav {
+    padding: 92px 20px 24px;
+  }
+  .mobile-nav a {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    font-size: clamp(48px, 14vw, 76px);
+  }
+  .mobile-nav a::before {
+    margin-top: 6px;
   }
   .hero {
     padding-top: 95px;
@@ -1422,13 +1648,21 @@ html.lenis body {
   .project-link:hover .project-sheet {
     transform: none;
   }
+  .scroll-progress {
+    display: none;
+  }
   .hero-photo:hover,
   .hero-photo:focus-visible {
     transform: rotate(7deg);
   }
   .contact-arrow:hover,
   .work-jump:hover svg,
-  .project-link:hover .caption-arrow {
+  .project-link:hover .caption-arrow,
+  .project-link:hover .project-image,
+  .project-link:hover .project-open,
+  .design-index-row:hover > svg,
+  .portrait:hover,
+  .expertise-card:hover {
     transform: none;
   }
 }

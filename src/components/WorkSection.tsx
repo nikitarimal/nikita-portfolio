@@ -7,6 +7,8 @@ type Project = {
   category: string;
   year?: string;
   link: string;
+  websiteUrl?: string;
+  hasCaseStudy?: boolean;
   description?: string;
   image?: string;
   figma?: boolean;
@@ -17,7 +19,9 @@ const projects: Project[] = [
     title: "Freelance Travel",
     category: "Travel Booking Platform",
     year: "2024",
-    link: "https://freelancetravel.com/",
+    link: "https://www.figma.com/proto/NhQqguFZrOwMVmEM4ci8zl/my-Case-studies?node-id=5-6206&t=ePcsvmmVQyIIlW6J-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=52%3A17856",
+    websiteUrl: "https://freelancetravel.com/",
+    hasCaseStudy: true,
     description:
       "Designed a travel booking website that allows users to easily search and book travel packages through a simple and user-friendly interface.",
     image: "/projects/freelance-landing.png",
@@ -101,11 +105,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             />
           </div>
         </div>
-        {project.link !== "#" && (
-          <span className="project-open">
-            Open project <ArrowUpRight size={17} />
-          </span>
-        )}
+      {project.link !== "#" && (
+        <span className="project-open">
+          {project.hasCaseStudy ? "Read case study" : "Open project"}
+          <ArrowUpRight size={17} />
+        </span>
+      )}
       </div>
       <div className="project-caption">
         <span className="project-index">
@@ -133,6 +138,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       )}
     </>
   );
+  const primaryLabel = project.hasCaseStudy
+    ? `Read the ${project.title} case study`
+    : `View ${project.title} website`;
+
   return (
     <Reveal className={`project-card project-card-${index}`}>
       <article>
@@ -142,12 +151,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             target="_blank"
             rel="noopener noreferrer"
             className="project-link"
-            aria-label={`View ${project.title} website (opens in a new tab)`}
+            aria-label={`${primaryLabel} (opens in a new tab)`}
           >
             {content}
           </a>
         ) : (
           <div className="project-link project-unlinked">{content}</div>
+        )}
+        {project.websiteUrl && (
+          <a
+            className="project-secondary-link"
+            href={project.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit the live ${project.title} website (opens in a new tab)`}
+          >
+            Visit live website <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
         )}
       </article>
     </Reveal>
