@@ -1,5 +1,6 @@
 ﻿import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import Reveal from "./Reveal";
 
 type Project = {
@@ -12,6 +13,7 @@ type Project = {
   description?: string;
   image?: string;
   figma?: boolean;
+  internal?: boolean;
 };
 
 const projects: Project[] = [
@@ -42,7 +44,6 @@ const projects: Project[] = [
     link: "https://www.baliyoventures.com/",
     description:
       "Designed the official company website focusing on modern design, usability, and clear content structure.",
-    image: "/projects/baliyo-landing.png",
   },
   {
     title: "Trek Booking",
@@ -51,12 +52,12 @@ const projects: Project[] = [
     link: "#",
     description:
       "Designed a comprehensive trekking and adventure booking platform for the Himalayan region.",
-    image: "/projects/trek-booking.png",
   },
   {
     title: "BI Conversion",
     category: "Business Intelligence",
     link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=543-30478&t=tAPp6UPsgBLM7stW-1",
+    image: "/projects/bi_conversion.png",
     figma: true,
   },
   {
@@ -67,16 +68,23 @@ const projects: Project[] = [
     figma: true,
   },
   {
-    title: "AmCham Nepal Website",
-    category: "Website Design",
-    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=1-8&t=tAPp6UPsgBLM7stW-1",
-    figma: true,
+    title: "American Chamber of Commerce Nepal",
+    category: "Business Association / Nonprofit",
+    description:
+      "A clearer digital home for members, events, publications, and the Nepal–U.S. business community.",
+    link: "/projects/amcham-nepal",
+    websiteUrl: "https://amchamnepal.com/",
+    hasCaseStudy: true,
+    image: "/projects/acocn.jpeg",
+    internal: true,
   },
   {
-    title: "Rudraksha App",
-    category: "Mobile App Design",
-    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=1169-34706&t=fDh5i0YVjsli57An-1",
-    figma: true,
+    title: "Rudraksha",
+    category: "Spiritual Lifestyle",
+    description:
+      "A calm daily companion for mantras, panchanga, and personalized astrology.",
+    link: "/projects/rudraksha",
+    internal: true,
   },
 ];
 
@@ -145,7 +153,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <Reveal className={`project-card project-card-${index}`}>
       <article>
-        {project.link !== "#" ? (
+        {project.link === "#" ? (
+          <div className="project-link project-unlinked">{content}</div>
+        ) : project.internal ? (
+          <Link
+            href={project.link}
+            className="project-link"
+            aria-label={primaryLabel}
+          >
+            {content}
+          </Link>
+        ) : (
           <a
             href={project.link}
             target="_blank"
@@ -155,8 +173,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           >
             {content}
           </a>
-        ) : (
-          <div className="project-link project-unlinked">{content}</div>
         )}
         {project.websiteUrl && (
           <a
@@ -213,28 +229,57 @@ export default function WorkSection() {
       <div className="project-index-section">
         <div className="index-heading">
           <h3>Also on the artboard</h3>
-          <p className="eyebrow">Explore the designs in Figma ↗</p>
+          <p className="eyebrow">Explore more projects ↗</p>
         </div>
-        {designIndex.map((project, index) => (
-          <a
-            className="design-index-row"
-            key={project.title}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`View ${project.title} in Figma (opens in a new tab)`}
-          >
-            <span className="index-number">
-              ({String(featured.length + index + 1).padStart(2, "0")})
-            </span>
-            <div>
-              <h4>{project.title}</h4>
-              {project.description && <p>{project.description}</p>}
-            </div>
-            <span className="index-category">{project.category}</span>
-            <ArrowUpRight size={28} strokeWidth={1.3} />
-          </a>
-        ))}
+        {designIndex.map((project, index) => {
+          const row = (
+            <>
+              <span className="index-number">
+                ({String(featured.length + index + 1).padStart(2, "0")})
+              </span>
+              <div>
+                <h4>{project.title}</h4>
+                {project.description && <p>{project.description}</p>}
+              </div>
+              <span className="index-category">{project.category}</span>
+              <ArrowUpRight size={28} strokeWidth={1.3} />
+            </>
+          );
+
+          if (project.link === "#") {
+            return (
+              <div
+                className="design-index-row design-index-row-disabled"
+                key={project.title}
+                aria-disabled="true"
+              >
+                {row}
+              </div>
+            );
+          }
+
+          return project.internal ? (
+            <Link
+              className="design-index-row"
+              key={project.title}
+              href={project.link}
+              aria-label={`Read the ${project.title} case study`}
+            >
+              {row}
+            </Link>
+          ) : (
+            <a
+              className="design-index-row"
+              key={project.title}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View ${project.title} in Figma (opens in a new tab)`}
+            >
+              {row}
+            </a>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 const links = [
   { name: "Work", href: "#work" },
   { name: "About", href: "#about" },
@@ -8,9 +9,45 @@ const links = [
   { name: "Expertise", href: "#expertise" },
 ];
 export default function Navbar() {
+  const pathname = usePathname();
+  const homePrefix = pathname === "/" ? "" : "/";
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let previousY = window.scrollY;
+    let ticking = false;
+    let frame = 0;
+
+    const updateHeader = () => {
+      const currentY = window.scrollY;
+      const difference = currentY - previousY;
+
+      if (currentY <= 16) {
+        setHidden(false);
+      } else if (Math.abs(difference) >= 1) {
+        setHidden(difference > 0);
+      }
+
+      previousY = currentY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        frame = window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("menu-open", open);
@@ -62,7 +99,9 @@ export default function Navbar() {
   return (
     <header
       ref={header}
-      className={`site-header${open ? " is-open" : ""}`}
+      className={`site-header${open ? " is-open" : ""}${
+        hidden && !open ? " is-hidden" : ""
+      }`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
@@ -72,7 +111,7 @@ export default function Navbar() {
       </a>
       <div className="nav-inner section-shell">
         <a
-          href="#top"
+          href={pathname === "/" ? "#top" : "/"}
           className="wordmark"
           aria-label="Nikita Rimal, back to top"
           onClick={() => setOpen(false)}
@@ -81,7 +120,7 @@ export default function Navbar() {
         </a>
         <nav aria-label="Main navigation" className="desktop-nav">
           {links.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a key={link.href} href={`${homePrefix}${link.href}`}>
               {link.name}
             </a>
           ))}
@@ -106,12 +145,20 @@ export default function Navbar() {
         className="mobile-nav"
         hidden={!open}
       >
-        {[...links, { name: "Contact", href: "#contact" }].map((link) => (
-          <a href={link.href} key={link.href} onClick={() => setOpen(false)}>
+        {links.map((link) => (
+          <a
+            href={`${homePrefix}${link.href}`}
+            key={link.href}
+            onClick={() => setOpen(false)}
+          >
             {link.name}
             <ArrowUpRight size={18} />
           </a>
         ))}
+        <a href="#contact" onClick={() => setOpen(false)}>
+          Contact
+          <ArrowUpRight size={18} />
+        </a>
       </nav>
     </header>
   );
