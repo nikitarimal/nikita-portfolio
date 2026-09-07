@@ -152,6 +152,11 @@ html.lenis body {
   z-index: 100;
   background: #f1efe7f5;
   animation: header-in 700ms var(--ease) both;
+  transition: transform 450ms var(--ease);
+  will-change: transform;
+}
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 .scroll-progress {
   position: fixed;
@@ -1046,10 +1051,10 @@ html.lenis body {
 }
 @keyframes header-in {
   from {
-    transform: translateY(-100%);
+    translate: 0 -100%;
   }
   to {
-    transform: translateY(0);
+    translate: 0 0;
   }
 }
 @keyframes rise-in {

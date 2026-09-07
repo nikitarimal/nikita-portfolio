@@ -9,8 +9,42 @@ const links = [
 ];
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let previousY = window.scrollY;
+    let ticking = false;
+    let frame = 0;
+
+    const updateHeader = () => {
+      const currentY = window.scrollY;
+      const difference = currentY - previousY;
+
+      if (currentY <= 16) {
+        setHidden(false);
+      } else if (Math.abs(difference) >= 1) {
+        setHidden(difference > 0);
+      }
+
+      previousY = currentY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        frame = window.requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("menu-open", open);
@@ -62,7 +96,9 @@ export default function Navbar() {
   return (
     <header
       ref={header}
-      className={`site-header${open ? " is-open" : ""}`}
+      className={`site-header${open ? " is-open" : ""}${
+        hidden && !open ? " is-hidden" : ""
+      }`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
