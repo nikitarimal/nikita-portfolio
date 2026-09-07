@@ -523,8 +523,8 @@ html.lenis body {
   background: #d4cdd9;
 }
 .project-visual-2 {
-  aspect-ratio: 0.88;
-  background: #e0b6a1;
+  aspect-ratio: 0.7;
+  background: #d8c9b2;
 }
 .project-visual-3 {
   aspect-ratio: 1.14;
@@ -545,7 +545,7 @@ html.lenis body {
   transform: rotate(4deg);
 }
 .project-visual-2 .project-sheet {
-  inset: 10% 8% -3%;
+  inset: 6% 7% 5%;
   transform: rotate(-4deg);
 }
 .project-visual-3 .project-sheet {
@@ -584,6 +584,13 @@ html.lenis body {
   object-fit: cover;
   object-position: top;
   transition: transform 1s var(--ease);
+}
+.project-image-contain {
+  object-fit: contain;
+  background: #f7f8fa;
+}
+.project-link:hover .project-image-contain {
+  transform: none;
 }
 .project-link:hover .project-sheet {
   transform: rotate(0) translateY(-8px);
@@ -971,6 +978,12 @@ html.lenis body {
 .case-title-long > span:last-child {
   margin-left: 8.5%;
 }
+.case-title-travel > span:last-child {
+  margin-left: 24%;
+}
+.case-title-bi > span:last-child {
+  margin-left: 17%;
+}
 .case-hero-bottom {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1030,6 +1043,23 @@ html.lenis body {
 }
 .case-artwork-amcham {
   background: #c9d0df;
+}
+.case-artwork-reffero {
+  background: #d6d6e5;
+}
+.case-artwork-bi {
+  background: #bec9c6;
+}
+.case-preview-window {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  box-shadow: 0 28px 65px #382e2424;
+}
+.case-preview-image {
+  object-fit: cover;
+  object-position: top;
+  box-shadow: none;
 }
 .case-artwork figure {
   margin: 0;
@@ -1134,6 +1164,61 @@ html.lenis body {
   font-size: 14px;
   line-height: 1.75;
 }
+.case-gallery {
+  padding-block: clamp(80px, 11vw, 165px);
+  border-top: 1px solid var(--foreground);
+}
+.case-gallery-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: clamp(45px, 7vw, 85px);
+}
+.case-gallery-heading h2 {
+  margin-top: 28px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(76px, 11vw, 170px);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.case-gallery-count {
+  color: var(--accent);
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(90px, 13vw, 190px);
+  font-weight: 700;
+  line-height: 0.72;
+  opacity: 0.18;
+}
+.case-gallery-list {
+  display: grid;
+  gap: clamp(42px, 8vw, 115px);
+}
+.case-gallery-item {
+  margin: 0;
+  padding: clamp(10px, 1.8vw, 26px);
+  background: #e4dfd3;
+  border: 1px solid var(--line);
+}
+.case-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.case-gallery-item figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 4px 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.case-gallery-item figcaption .eyebrow {
+  color: var(--accent);
+}
 .case-next {
   padding-block: clamp(80px, 11vw, 160px);
   border-top: 1px solid var(--foreground);
@@ -1170,6 +1255,46 @@ html.lenis body {
 }
 .case-back-link:hover svg:last-child {
   transform: translate(3px, -3px);
+}
+
+/* Freelance Travel has a longer gallery, so its vertical rhythm is tighter. */
+.case-study-travel .case-hero {
+  padding-top: clamp(124px, 10vw, 168px);
+  padding-bottom: clamp(54px, 6vw, 84px);
+}
+.case-study-travel .case-kicker {
+  padding-bottom: clamp(28px, 3.5vw, 46px);
+}
+.case-study-travel .case-hero h1 {
+  margin-block: clamp(31px, 3.8vw, 52px);
+}
+.case-study-travel .case-story {
+  padding-top: clamp(54px, 6vw, 88px);
+}
+.case-study-travel .case-section {
+  gap: clamp(38px, 6vw, 92px);
+  padding-block: clamp(56px, 6vw, 88px);
+}
+.case-study-travel .case-section-copy h2 {
+  margin-bottom: 30px;
+}
+.case-study-travel .case-section-copy blockquote {
+  margin-top: clamp(38px, 4vw, 58px);
+}
+.case-study-travel .case-gallery {
+  padding-block: clamp(70px, 7vw, 105px);
+}
+.case-study-travel .case-gallery-heading {
+  padding-bottom: clamp(38px, 4.5vw, 62px);
+}
+.case-study-travel .case-gallery-list {
+  gap: clamp(40px, 5vw, 76px);
+}
+.case-study-travel .case-gallery-item {
+  padding: clamp(10px, 1.3vw, 19px);
+}
+.case-study-travel .case-next {
+  padding-block: clamp(72px, 8vw, 120px);
 }
 
 .footer {
@@ -1693,6 +1818,9 @@ html.lenis body {
   .project-visual-2 {
     aspect-ratio: 0.95;
   }
+  .project-visual-2 {
+    aspect-ratio: 0.7;
+  }
   .project-caption {
     gap: 10px;
     padding-top: 17px;
@@ -1930,12 +2058,66 @@ html.lenis body {
     margin-top: 24px;
     font-size: 27px;
   }
+  .case-gallery-heading {
+    align-items: flex-start;
+  }
+  .case-gallery-heading h2 {
+    font-size: clamp(68px, 19vw, 112px);
+  }
+  .case-gallery-count {
+    font-size: 80px;
+  }
+  .case-gallery-item figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+    padding-top: 13px;
+  }
   .case-next > div > div {
     align-items: flex-start;
     flex-direction: column;
   }
   .case-next h2 {
     font-size: clamp(72px, 20vw, 118px);
+  }
+  .case-study-travel .case-hero {
+    padding-top: 102px;
+    padding-bottom: 48px;
+  }
+  .case-study-travel .case-kicker {
+    padding-bottom: 24px;
+  }
+  .case-study-travel .case-hero h1 {
+    margin-block: 30px;
+  }
+  .case-study-travel .case-hero-bottom {
+    gap: 24px;
+    padding-top: 25px;
+  }
+  .case-study-travel .case-story {
+    padding-top: 46px;
+  }
+  .case-study-travel .case-section {
+    gap: 24px;
+    padding-block: 50px;
+  }
+  .case-study-travel .case-section-copy h2 {
+    margin-bottom: 24px;
+  }
+  .case-study-travel .case-section-copy blockquote {
+    margin-top: 36px;
+  }
+  .case-study-travel .case-gallery {
+    padding-block: 62px;
+  }
+  .case-study-travel .case-gallery-heading {
+    padding-bottom: 36px;
+  }
+  .case-study-travel .case-gallery-list {
+    gap: 36px;
+  }
+  .case-study-travel .case-next {
+    padding-block: 70px;
   }
 }
 @media (max-width: 370px) {

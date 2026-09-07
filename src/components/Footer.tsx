@@ -41,7 +41,6 @@ export default function Footer() {
               <ArrowUpRight size={24} aria-hidden="true" />
             </a>
             <div className="contact-secondary">
-              <a href="tel:+9779865500240">+977 9865500240</a>
               <a
                 href="https://linkedin.com/in/nikitarimal1418"
                 target="_blank"
