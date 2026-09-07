@@ -12,27 +12,31 @@ type Project = {
   hasCaseStudy?: boolean;
   description?: string;
   image?: string;
-  figma?: boolean;
+  imageFit?: "cover" | "contain";
   internal?: boolean;
 };
 
 const projects: Project[] = [
   {
     title: "Freelance Travel",
-    category: "Travel Booking Platform",
+    category: "Travel & Tour Booking",
     year: "2024",
-    link: "https://www.figma.com/proto/NhQqguFZrOwMVmEM4ci8zl/my-Case-studies?node-id=5-6206&t=ePcsvmmVQyIIlW6J-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=52%3A17856",
+    link: "/projects/freelance-travel",
     websiteUrl: "https://freelancetravel.com/",
     hasCaseStudy: true,
+    internal: true,
     description:
       "Designed a travel booking website that allows users to easily search and book travel packages through a simple and user-friendly interface.",
     image: "/projects/freelance-landing.png",
   },
   {
     title: "Reffero",
-    category: "Influencer Marketplace",
+    category: "Software as a Service",
     year: "2024",
-    link: "#",
+    link: "/projects/reffero",
+    websiteUrl: "https://reffero.com/",
+    hasCaseStudy: true,
+    internal: true,
     description:
       "A platform connecting brands with influencers for collaboration and hiring. Creator dashboard and hiring workflow design.",
     image: "/projects/reffero.png",
@@ -55,17 +59,17 @@ const projects: Project[] = [
   },
   {
     title: "BI Conversion",
-    category: "Business Intelligence",
-    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=543-30478&t=tAPp6UPsgBLM7stW-1",
-    image: "/projects/bi_conversion.png",
-    figma: true,
+    category: "Enterprise Software / Data Tooling",
+    description:
+      "A guided tool for converting BI reports and managing the resulting library.",
+    link: "/projects/bi-conversion",
+    internal: true,
   },
   {
     title: "Cropyield",
     category: "Productivity and Management Apps",
     description: "Internal task and project management app",
-    link: "https://www.figma.com/design/51BOTxROVKiH0s1QINnXV4/Nikita-s-Works?node-id=381-8153&t=tAPp6UPsgBLM7stW-1",
-    figma: true,
+    link: "#",
   },
   {
     title: "American Chamber of Commerce Nepal",
@@ -75,7 +79,7 @@ const projects: Project[] = [
     link: "/projects/amcham-nepal",
     websiteUrl: "https://amchamnepal.com/",
     hasCaseStudy: true,
-    image: "/projects/acocn.jpeg",
+    image: "/projects/amchm.jpeg",
     internal: true,
   },
   {
@@ -84,6 +88,9 @@ const projects: Project[] = [
     description:
       "A calm daily companion for mantras, panchanga, and personalized astrology.",
     link: "/projects/rudraksha",
+    hasCaseStudy: true,
+    image: "/projects/rudraksh.jpeg",
+    imageFit: "contain",
     internal: true,
   },
 ];
@@ -109,7 +116,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   ? "(max-width: 760px) 85vw, 58vw"
                   : "(max-width: 760px) 85vw, 44vw"
               }
-              className="project-image"
+              className={`project-image${
+                project.imageFit === "contain" ? " project-image-contain" : ""
+              }`}
             />
           </div>
         </div>
@@ -191,8 +200,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function WorkSection() {
-  const featured = projects.filter((project) => project.image);
-  const designIndex = projects.filter((project) => !project.image);
+  const featuredOrder = [
+    "Freelance Travel",
+    "Reffero",
+    "Rudraksha",
+    "American Chamber of Commerce Nepal",
+  ];
+  const featured = projects
+    .filter((project) => project.image)
+    .sort(
+      (a, b) => featuredOrder.indexOf(a.title) - featuredOrder.indexOf(b.title),
+    );
+  const designIndexOrder = [
+    "BI Conversion",
+    "Baliyo Ventures",
+    "Trek Booking",
+    "Cropyield",
+  ];
+  const designIndex = projects
+    .filter((project) => !project.image)
+    .sort(
+      (a, b) =>
+        designIndexOrder.indexOf(a.title) - designIndexOrder.indexOf(b.title),
+    );
   return (
     <section
       id="work"
