@@ -27,8 +27,20 @@ export const metadata: Metadata = {
   description:
     "Selected web, mobile, and interface design by Nikita Rimal. UI/UX designer based in Kathmandu, Nepal.",
   icons: {
-    icon: "/image/nikita-logo.png",
-    apple: "/image/nikita-logo.png",
+    icon: [
+      {
+        url: "/image/nikita-logo.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+    apple: [
+      {
+        url: "/image/nikita-logo.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
   },
 };
 

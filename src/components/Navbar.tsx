@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 const links = [
   { name: "Work", href: "#work" },
   { name: "About", href: "#about" },
@@ -8,6 +9,8 @@ const links = [
   { name: "Expertise", href: "#expertise" },
 ];
 export default function Navbar() {
+  const pathname = usePathname();
+  const homePrefix = pathname === "/" ? "" : "/";
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -108,7 +111,7 @@ export default function Navbar() {
       </a>
       <div className="nav-inner section-shell">
         <a
-          href="#top"
+          href={pathname === "/" ? "#top" : "/"}
           className="wordmark"
           aria-label="Nikita Rimal, back to top"
           onClick={() => setOpen(false)}
@@ -117,7 +120,7 @@ export default function Navbar() {
         </a>
         <nav aria-label="Main navigation" className="desktop-nav">
           {links.map((link) => (
-            <a key={link.href} href={link.href}>
+            <a key={link.href} href={`${homePrefix}${link.href}`}>
               {link.name}
             </a>
           ))}
@@ -142,12 +145,20 @@ export default function Navbar() {
         className="mobile-nav"
         hidden={!open}
       >
-        {[...links, { name: "Contact", href: "#contact" }].map((link) => (
-          <a href={link.href} key={link.href} onClick={() => setOpen(false)}>
+        {links.map((link) => (
+          <a
+            href={`${homePrefix}${link.href}`}
+            key={link.href}
+            onClick={() => setOpen(false)}
+          >
             {link.name}
             <ArrowUpRight size={18} />
           </a>
         ))}
+        <a href="#contact" onClick={() => setOpen(false)}>
+          Contact
+          <ArrowUpRight size={18} />
+        </a>
       </nav>
     </header>
   );
